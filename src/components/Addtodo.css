@@ -1,51 +1,55 @@
-.add-todo{
-    padding:5px;
+.add-todo {
+    padding: 5px;
     font-size: 16px;
-    border-width:1px;
+    border-width: 1px;
     border-color: #CCCCCC;
     background-color: #FFFFFF;
-    color:#000000;
     border-style: solid;
     border-radius: 0px;
-    box-shadow: 0px 0px 5px rgba(66,66,66,.75);
-    text-shadow: 0px 0px 5px rgba(66,66,66,.75);
+    box-shadow: 0px 0px 5px rgba(66, 66, 66, .75);
 }
 
 .add-todo:focus {
     outline: none;
 }
 
-.btn-addtodo{
-    border:0 none;
+.btn-addtodo {
+    border: 0 none;
     border-radius: 6px 6px 6px 6px;
-    color:#FFFFFF;
-    cursor:pointer;
+    color: #FFFFFF;
+    cursor: pointer;
     outline: 0 none;
     text-decoration: none;
 }
 
-.btn-addtodo{ 
-    background-color: #1877f2; 
-    border: none; 
-    border-radius: 6px; 
+.btn-addtodo {
+    background-color: #1877f2;
+    border: none;
+    border-radius: 6px;
     color: #fff;
     flex-grow: 1;
     font-family: SFProText-Regular, Helvetica, Arial, sans-serif;
-    font-size: 15px; 
-    height: 36px; 
-    line-height: 20px; 
+    font-size: 15px;
+    height: 36px;
+    line-height: 20px;
     margin-left: 8px;
-    margin-right: 6px; 
-    min-width: 185px; 
-    padding: 0 16px 0 16px; 
-    transition: 0.3s; 
-    cursor: pointer; 
-    } 
-    
-    .btn-addtodo:hover{
-    background-color: #e4e6eb; 
-    color: #050505; 
-    font-size: 15px; 
-    transition: 0.3s; 
-    } 
-    
+    margin-right: 6px;
+    min-width: 185px;
+    padding: 0 16px 0 16px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.btn-addtodo:hover {
+    background-color: #e4e6eb;
+    color: #050505;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.addtodo-input-container > input, textarea{
+    margin-left:40px;
+}
+.addtodo-input-container > button{
+    margin-left:40px;
+}

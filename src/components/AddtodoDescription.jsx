@@ -3,16 +3,20 @@ import "../components/Addtodo.css";
 
 function AddtodoDescription({input,handleChange}){
     return(
-        <div>
+        <>
 
-        <input type="text"
-            className="add-todo"
+        <textarea type="text"
+            className="add-todo addtodo-textarea"
             value={input}
             onChange={handleChange}
             name={"addtododescription"}
+            cols="40"
+            rows="5"
+            placeholder="Description"
+            maxLength={200}
         />
 
-    </div>
+    </>
     )
 
 }
