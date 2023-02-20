@@ -1,32 +1,48 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import AddtodoName from './components/AddtodoName';
+import AddtodoDescription from './components/AddtodoDescription';
+import AddtodoButton from './components/AddtodoButton';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleInput = (event) => {
+
+    const { name, value } = event.target;
+
+    switch (name) {
+      case "addtodoname":
+        setName(value);
+        break;
+      case "addtododescription":
+        setDescription(value);
+        break;
+    }
+
+    console.log(value)
+
+  }
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <AddtodoName
+        input={name}
+        handleChange={handleInput}
+      />
+
+      <AddtodoDescription
+        input={description}
+        handleChange={handleInput}
+      />
+
+      <AddtodoButton/>
+
+
     </div>
   )
 }
