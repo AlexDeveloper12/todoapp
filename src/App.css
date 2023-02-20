@@ -2,3 +2,15 @@ textarea{
     resize: none;
     vertical-align: middle;
 }
+
+.notes-table{
+    border-collapse: collapse;
+    width:60%;
+}
+
+.notes-table td, .notes-table th {
+    border:1px #ddd;
+    padding:8px;
+}
+
+.notes-table tr:nth-child(even){background-color: #f2f2f2;}
