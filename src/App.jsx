@@ -75,7 +75,7 @@ function App() {
           <div className="input-group">
             <div className="input-group-prepend">
               <div className="input-group-text bg-info text-white">
-                <i className="fas fa-book" />
+                <i className="fa fa-book" />
               </div>
             </div>
 
@@ -85,9 +85,6 @@ function App() {
               handleChange={handleInput}
             />
           </div>
-
-          
-
 
           <AddtodoButton
             btnAction={addTodoInformation}
