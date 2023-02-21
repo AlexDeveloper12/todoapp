@@ -3,6 +3,7 @@ import './App.css'
 import AddtodoName from './components/AddtodoName';
 import AddtodoDescription from './components/AddtodoDescription';
 import AddtodoButton from './components/AddtodoButton';
+import Notes from './components/Notes';
 
 function App() {
 
@@ -42,7 +43,7 @@ function App() {
 
       //use key name to retrieve the corresponding value
 
-      var value = localStorage.getItem(key);
+      var value = JSON.parse(localStorage.getItem(key));
 
       console.log(`Key: ${key} - Value: ${value}`)
       tempArray.push(value);
@@ -91,12 +92,29 @@ function App() {
         />
       </div>
 
-      <div>
-        {notes !== null && notes.length > 0 ?
+      <table className="notes-table">
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+            Name
+          </th>
+          <th>
+            Desciption
+          </th>
+          <th>
+            Is complete?
+          </th>
 
-          <div>hello</div> : <span>goodbye</span>
-        }
-      </div>
+        </tr>
+        
+          {notes !== null && notes.length > 0 ?
+
+            <Notes localStorageNotes={notes} /> : <span>No to-do notes</span>
+          }
+
+      </table>
 
 
 
