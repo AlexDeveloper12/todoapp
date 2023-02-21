@@ -1,7 +1,8 @@
 import React from "react";
-import {FaPencilAlt,FaTrash} from "react-icons/fa";
+import { FaPencilAlt, FaTrash } from "react-icons/fa";
+import EditTodoModal from "./Modal/EditTodoModal";
 
-function Notes({ localStorageNotes, handleIsComplete }) {
+function Notes({ localStorageNotes, handleIsComplete, toggleEditModal }) {
     return (
         <tr>
             {
@@ -21,9 +22,9 @@ function Notes({ localStorageNotes, handleIsComplete }) {
                             <td>
                                 {description}
                             </td>
-                            <td> <input type="checkbox" value={isComplete} checked={isComplete} onChange={()=>handleIsComplete(id)} /></td>
+                            <td> <input type="checkbox" disabled value={isComplete} checked={isComplete}  /></td>
                             <td>
-                                <FaPencilAlt />
+                                <FaPencilAlt onClick={() => toggleEditModal(value)} />
                             </td>
                             <td>
                                 <FaTrash />
@@ -33,6 +34,7 @@ function Notes({ localStorageNotes, handleIsComplete }) {
                 })
             }
         </tr>
+
     )
 
 }

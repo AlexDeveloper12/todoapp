@@ -5,6 +5,7 @@ import AddtodoDescription from './components/AddtodoDescription';
 import AddtodoButton from './components/AddtodoButton';
 import Notes from './components/Notes';
 import ValidationModal from './components/Modal/ValidationModal';
+import EditTodoModal from './components/Modal/EditTodoModal';
 
 function App() {
 
@@ -13,6 +14,8 @@ function App() {
   const [id, setId] = useState(1);
   const [notes, setNotes] = useState([]);
   const [isValidationModalOpen, setisValidationModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({});
 
   useEffect(() => {
     getNotes();
@@ -46,7 +49,7 @@ function App() {
   }
 
   const getNotes = () => {
-    let tempArray = []
+    let tempArray = [];
     for (var i = 0; i < localStorage.length; i++) {
 
       //set iteration key name
@@ -78,7 +81,11 @@ function App() {
     }
 
     console.log(value)
+  }
 
+  const toggleEditModal = (data) => {
+    setIsEditModalOpen(!isEditModalOpen);
+    setModalData(data);
   }
 
   const handleIsComplete = (todoId) => {
@@ -133,7 +140,11 @@ function App() {
           </thead>
           <tbody>
 
-            <Notes localStorageNotes={notes} handleIsComplete={handleIsComplete} />
+            <Notes
+              localStorageNotes={notes}
+              handleIsComplete={handleIsComplete}
+              toggleEditModal={toggleEditModal}
+            />
 
           </tbody>
 
@@ -149,6 +160,18 @@ function App() {
             toggleModal={toggleValidationModal} />
           : null
       }
+
+      {
+        isEditModalOpen ?
+          <EditTodoModal
+            data={modalData}
+            isEditModalOpen={isEditModalOpen}
+            handleIsComplete={handleIsComplete}
+          />
+          : null
+      }
+
+
 
 
     </div>
