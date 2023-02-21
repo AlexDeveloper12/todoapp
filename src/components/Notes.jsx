@@ -1,5 +1,5 @@
 import React from "react";
-import { FaPencilAlt, FaTrash } from "react-icons/fa";
+import {FaPencilAlt,FaTrash} from "react-icons/fa";
 
 function Notes({ localStorageNotes }) {
     return (

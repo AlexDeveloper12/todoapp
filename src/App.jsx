@@ -30,6 +30,7 @@ function App() {
       }
 
       localStorage.setItem(`todonote-${todoNote.id}`, JSON.stringify(todoNote));
+      getNotes();
     }
 
   }
@@ -93,6 +94,7 @@ function App() {
       </div>
 
       <table className="notes-table">
+        <thead>
         <tr>
           <th>
             ID
@@ -106,13 +108,19 @@ function App() {
           <th>
             Is complete?
           </th>
+          <th colSpan={2}>
+            Actions
+          </th>
 
         </tr>
+        </thead>
+        <tbody>
         
           {notes !== null && notes.length > 0 ?
 
-            <Notes localStorageNotes={notes} /> : <span>No to-do notes</span>
+            <Notes localStorageNotes={notes} /> : <tr><td>No to-do notes</td></tr>
           }
+          </tbody>
 
       </table>
 
