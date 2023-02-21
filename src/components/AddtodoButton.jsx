@@ -3,8 +3,8 @@ import React from "react";
 function AddtodoButton({btnAction}){
     
     return (
-        <button type="button" 
-            className="btn-addtodo" 
+        <button type="submit" 
+            className="btn btn-block mt-3 btn-success" 
             onClick={btnAction}
             >
                 Add

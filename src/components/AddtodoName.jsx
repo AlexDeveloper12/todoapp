@@ -5,11 +5,11 @@ function AddtodoName({ input, handleChange }) {
     return (
         <>
             <input type="text"
-                className="add-todo"
+                className="form-control"
                 value={input}
                 onChange={handleChange}
                 name={"addtodoname"}
-                placeholder="Name"
+                placeholder="New Note"
                 maxLength={30}
             />
         </>

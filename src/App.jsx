@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import AddtodoName from './components/AddtodoName';
-import AddtodoDescription from './components/AddtodoDescription';
 import AddtodoButton from './components/AddtodoButton';
-import Notes from './components/Notes';
+import Note from './components/Note';
 
 function App() {
 
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [id, setId] = useState(0);
   const [notes, setNotes] = useState([])
 
@@ -19,13 +17,12 @@ function App() {
   const addTodoInformation = () => {
     //here will be the code to set the note in the local storage so it is available after user leaves browser
 
-    if (name.length > 0 && description.length > 0) {
+    if (name.length > 0) {
       setId(id + 1);
       //set local storage key
       let todoNote = {
         id: id,
         name: name,
-        description: description,
         isComplete: 0
       }
 
@@ -54,9 +51,6 @@ function App() {
 
   }
 
-
-
-
   const handleInput = (event) => {
 
     const { name, value } = event.target;
@@ -65,9 +59,6 @@ function App() {
       case "addtodoname":
         setName(value);
         break;
-      case "addtododescription":
-        setDescription(value);
-        break;
     }
 
     console.log(value)
@@ -75,54 +66,116 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="container">
 
-      <div style={{ display: 'block', justifyContent: 'center', margin: '0 auto' }} className="addtodo-input-container" >
-        <AddtodoName
-          input={name}
-          handleChange={handleInput}
-        />
+      <h3 className="text-center">Notes</h3>
 
-        <AddtodoDescription
-          input={description}
-          handleChange={handleInput}
-        />
+      <div className="card card-body my-3">
+        <form>
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <div className="input-group-text bg-info text-white">
+                <i className="fas fa-book" />
+              </div>
+            </div>
 
-        <AddtodoButton
-          btnAction={addTodoInformation}
-        />
+
+            <AddtodoName
+              input={name}
+              handleChange={handleInput}
+            />
+          </div>
+
+          
+
+
+          <AddtodoButton
+            btnAction={addTodoInformation}
+          />
+
+        </form>
       </div>
 
-      <table className="notes-table">
-        <thead>
-        <tr>
-          <th>
-            ID
-          </th>
-          <th>
-            Name
-          </th>
-          <th>
-            Desciption
-          </th>
-          <th>
-            Is complete?
-          </th>
-          <th colSpan={2}>
-            Actions
-          </th>
 
-        </tr>
+
+      {
+        notes.length > 0 ?
+          <ul className="list-group my-5">
+            {
+              notes.map(value => {
+                return (
+                  <Note
+                    localNote={value}
+                  />
+
+                )
+              })
+            }
+          </ul>
+
+          : null
+
+      }
+
+      <div className="row mt-4">
+        <div className="col-md-6">
+          <button
+            type="button"
+            className="btn btn-danger btn-block mt-1">
+            Delete completed tasks
+          </button>
+        </div>
+
+        <div className="col-md-6">
+          <button
+            type="button"
+            className="btn btn-danger btn-block mt-1">
+            Delete all tasks
+          </button>
+        </div>
+
+
+
+      </div>
+
+
+
+
+
+
+
+
+
+      {/* <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              ID
+            </th>
+            <th>
+              Name
+            </th>
+            <th>
+              Desciption
+            </th>
+            <th>
+              Is complete?
+            </th>
+            <th colSpan={2}>
+              Actions
+            </th>
+
+          </tr>
         </thead>
         <tbody>
-        
+
           {notes !== null && notes.length > 0 ?
 
-            <Notes localStorageNotes={notes} /> : <tr><td>No to-do notes</td></tr>
+             : <tr><td>No to-do notes</td></tr>
           }
-          </tbody>
+        </tbody>
 
-      </table>
+      </table> */}
 
 
 

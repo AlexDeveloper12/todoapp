@@ -6,7 +6,7 @@ function AddtodoDescription({input,handleChange}){
         <>
 
         <textarea type="text"
-            className="add-todo addtodo-textarea"
+            className="form-control"
             value={input}
             onChange={handleChange}
             name={"addtododescription"}

@@ -40,3 +40,7 @@ td[colspan="2"] {
     text-align: center;
 }
 
+.completed-task {
+    text-decoration: line-through;
+    color: #db3545;
+  }
