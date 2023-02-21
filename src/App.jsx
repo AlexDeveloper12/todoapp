@@ -96,6 +96,15 @@ function App() {
     getNotes();
   }
 
+  const updateTodoItem = (todoId,name,description,isComplete) =>{
+    let tempTodoItem = JSON.parse(localStorage.getItem(`todonote-${todoId}`));
+    tempTodoItem.name = name;
+    tempTodoItem.description = description;
+    tempTodoItem.isComplete = isComplete;
+    localStorage.setItem(`todonote-${todoId}`,JSON.stringify(tempTodoItem));
+    setIsEditModalOpen(false);
+  }
+
   return (
     <div className="App">
 
@@ -167,6 +176,7 @@ function App() {
             data={modalData}
             isEditModalOpen={isEditModalOpen}
             handleIsComplete={handleIsComplete}
+            updateTodo={updateTodoItem}
           />
           : null
       }
