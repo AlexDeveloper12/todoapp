@@ -103,6 +103,7 @@ function App() {
                 return (
                   <Note
                     localNote={value}
+
                   />
 
                 )
@@ -134,14 +135,6 @@ function App() {
 
 
       </div>
-
-
-
-
-
-
-
-
 
       {/* <table className="table table-striped">
         <thead>

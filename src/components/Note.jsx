@@ -2,7 +2,7 @@ import React from "react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 
 function Note({ localNote }) {
-    const { id, name, description, isComplete } = localNote;
+    const { id, name, description, isComplete, toggleEdit } = localNote;
 
     return (
         <>
@@ -17,7 +17,7 @@ function Note({ localNote }) {
                 <div className="col-md-2">
                     <span
                         className="mx-2 text-warning">
-                        <i className="fa fa-pen" />
+                        <i className="fa fa-pencil" onClick={toggleEdit} />
                     </span>
                     <span
                         className="mx-2 text-danger">
