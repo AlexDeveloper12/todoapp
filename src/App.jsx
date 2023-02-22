@@ -115,6 +115,7 @@ function App() {
 
   const deleteAllTodos = () => {
     localStorage.clear();
+    getNotes();
   }
 
   const deleteCompletedTodos = () => {
@@ -174,7 +175,7 @@ function App() {
             }
           </ul>
 
-          : null
+          : <label>No To-dos </label>
 
       }
       <div className="row mt-4">
