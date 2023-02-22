@@ -23,11 +23,11 @@ function ValidationModal({ isModalOpen, toggleModal }) {
                 style={customStyles}
             >
                 <span>
-                    Please ensure that you enter a name and a description when adding to your to-do list
+                    Please ensure that you enter a value for your to-do note
                 </span>
 
-                <div style={{textAlign:'center',marginTop:'30px'}}>
-                    <button type="button" className="btn-close" onClick={toggleModal}>Close</button>
+                <div className="text-center mt-3">
+                    <button type="button" className="btn btn-danger" onClick={toggleModal}>Close</button>
                 </div>
 
 

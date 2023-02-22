@@ -36,6 +36,8 @@ function App() {
 
       localStorage.setItem(`todonote-${todoNote.id}`, JSON.stringify(todoNote));
       getNotes();
+    } else {
+      setisValidationModalOpen(true);
     }
 
   }
@@ -117,7 +119,7 @@ function App() {
       <h3 className="text-center">Notes</h3>
 
       <div className="card card-body my-3">
-        <form>
+        
           <div className="input-group">
             <div className="input-group-prepend">
               <div className="input-group-text bg-info text-white">
@@ -132,11 +134,11 @@ function App() {
             />
           </div>
 
-          <AddtodoButton
-            btnAction={addTodoInformation}
-          />
-
-        </form>
+          <div className="text-center">
+            <AddtodoButton
+              btnAction={addTodoInformation}
+            />
+          </div>
       </div>
 
       {
