@@ -48,3 +48,8 @@ td[colspan="2"] {
 .todo-completed {
     text-decoration: line-through;
 }
+
+.btn-add-todo{
+    padding:10px;
+    width: 100px;
+}

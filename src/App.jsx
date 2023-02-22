@@ -98,10 +98,9 @@ function App() {
     //getNotes();
   }
 
-  const updateTodoItem = (todoId, name, description, isComplete) => {
+  const updateTodoItem = (todoId, name, isComplete) => {
     let tempTodoItem = JSON.parse(localStorage.getItem(`todonote-${todoId}`));
     tempTodoItem.name = name;
-    tempTodoItem.description = description;
     tempTodoItem.isComplete = isComplete;
     localStorage.setItem(`todonote-${todoId}`, JSON.stringify(tempTodoItem));
     setIsEditModalOpen(false);
@@ -144,13 +143,7 @@ function App() {
       <div className="card card-body my-3">
 
         <div className="input-group">
-          <div className="input-group-prepend">
-            <div className="input-group-text bg-info text-white">
-              <i className="fa fa-book" />
-            </div>
-          </div>
-
-
+        
           <AddtodoName
             input={name}
             handleChange={handleInput}
@@ -221,6 +214,7 @@ function App() {
               isEditModalOpen={isEditModalOpen}
               handleIsComplete={handleIsComplete}
               updateTodo={updateTodoItem}
+              toggleEditModal={toggleEditModal}
             />
             : null
         }

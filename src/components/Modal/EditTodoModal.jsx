@@ -15,7 +15,7 @@ const customStyles = {
     },
 };
 
-function EditTodoModal({ data, isEditModalOpen, handleText, handleIsComplete, updateTodo }) {
+function EditTodoModal({ data, isEditModalOpen, handleText, handleIsComplete, updateTodo,toggleEditModal }) {
 
     return (
         <div>
@@ -28,10 +28,6 @@ function EditTodoModal({ data, isEditModalOpen, handleText, handleIsComplete, up
                         <label className="edit-todo-label">Name:</label>
                         <input type="text" className="edit-todo-name edit-todo" name="addtodoname" value={data.name} onChange={(event) => handleText(event)} />
                     </div>
-                    <div className="input-container">
-                        <label className="edit-todo-label">Description:</label>
-                        <textarea className="edit-todo-description edit-todo" name="addtododescription" value={data.description} onChange={(event) => handleText(event)} />
-                    </div>
 
                     <div className="input-container">
                         <label className="edit-todo-label">Is Complete?</label>
@@ -39,7 +35,8 @@ function EditTodoModal({ data, isEditModalOpen, handleText, handleIsComplete, up
                     </div>
 
                     <div className="btn-update-container">
-                        <button type="button" className="btn-update" onClick={()=>updateTodo(data.id,data.name,data.description,data.isComplete)} >Update</button>
+                        <button type="button" className="btn btn-success" onClick={()=>updateTodo(data.id,data.name,data.isComplete)} >Update</button>
+                        <button type="button" className="btn btn-danger" onClick={toggleEditModal}>Cancel</button>
                     </div>
 
                 </form>
