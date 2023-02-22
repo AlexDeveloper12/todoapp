@@ -3,12 +3,20 @@ import './App.css'
 import AddtodoName from './components/AddtodoName';
 import AddtodoButton from './components/AddtodoButton';
 import Note from './components/Note';
+import ValidationModal from './components/Modal/ValidationModal';
+import EditTodoModal from './components/Modal/EditTodoModal';
+import DeleteTodoModal from './components/Modal/DeleteTodoModal';
 
 function App() {
 
   const [name, setName] = useState("");
   const [id, setId] = useState(0);
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState([]);
+  const [isValidationModalOpen, setisValidationModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({});
+  const [deleteChosenId, setDeleteChosenId] = useState(0);
 
   useEffect(() => {
     getNotes();
@@ -43,7 +51,6 @@ function App() {
 
       var value = JSON.parse(localStorage.getItem(key));
 
-      console.log(`Key: ${key} - Value: ${value}`)
       tempArray.push(value);
     }
 
@@ -60,8 +67,47 @@ function App() {
         setName(value);
         break;
     }
+  }
 
-    console.log(value)
+  const toggleValidationModal = () => {
+    setisValidationModalOpen(!isValidationModalOpen);
+  }
+
+  const toggleEditModal = (data) => {
+    setIsEditModalOpen(!isEditModalOpen);
+    setModalData(data);
+  }
+
+  const toggleDeleteModal = (id) => {
+    setIsDeleteModalOpen(!isDeleteModalOpen);
+    setDeleteChosenId(id);
+
+  }
+
+  const handleIsComplete = (todoId) => {
+    let tempValue = JSON.parse(localStorage.getItem(`todonote-${todoId}`))
+    console.log(tempValue);
+    tempValue.isComplete = tempValue.isComplete == 0 ? 1 : 0
+    localStorage.setItem(`todonote-${todoId}`, JSON.stringify(tempValue));
+    getNotes();
+  }
+
+  const updateTodoItem = (todoId, name, description, isComplete) => {
+    let tempTodoItem = JSON.parse(localStorage.getItem(`todonote-${todoId}`));
+    tempTodoItem.name = name;
+    tempTodoItem.description = description;
+    tempTodoItem.isComplete = isComplete;
+    localStorage.setItem(`todonote-${todoId}`, JSON.stringify(tempTodoItem));
+    setIsEditModalOpen(false);
+  }
+
+  const deleteTodo = (id) => {
+    console.log(id)
+    if (id !== null) {
+      localStorage.removeItem(`todonote-${id}`);
+      toggleDeleteModal();
+      getNotes();
+    }
 
   }
 
@@ -93,8 +139,6 @@ function App() {
         </form>
       </div>
 
-
-
       {
         notes.length > 0 ?
           <ul className="list-group my-5">
@@ -103,9 +147,9 @@ function App() {
                 return (
                   <Note
                     localNote={value}
-
+                    toggleEdit={toggleEditModal}
+                    toggleDelete={toggleDeleteModal}
                   />
-
                 )
               })
             }
@@ -114,7 +158,6 @@ function App() {
           : null
 
       }
-
       <div className="row mt-4">
         <div className="col-md-6">
           <button
@@ -132,41 +175,40 @@ function App() {
           </button>
         </div>
 
+        {
+          isEditModalOpen ?
+            <EditTodoModal
+              data={modalData}
+              isEditModalOpen={isEditModalOpen}
+              handleIsComplete={handleIsComplete}
+              updateTodo={updateTodoItem}
+            />
+            : null
+        }
+
+        {
+          isValidationModalOpen ?
+            <ValidationModal
+              isModalOpen={isValidationModalOpen}
+              toggleModal={toggleValidationModal} />
+            : null
+        }
+
+        {
+          isDeleteModalOpen ?
+            <DeleteTodoModal
+              deleteTodo={deleteTodo}
+              isDeleteOpen={isDeleteModalOpen}
+              toggleDeleteModal={toggleDeleteModal}
+              id={deleteChosenId}
+            />
+            : null
+        }
+
+
 
 
       </div>
-
-      {/* <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>
-              ID
-            </th>
-            <th>
-              Name
-            </th>
-            <th>
-              Desciption
-            </th>
-            <th>
-              Is complete?
-            </th>
-            <th colSpan={2}>
-              Actions
-            </th>
-
-          </tr>
-        </thead>
-        <tbody>
-
-          {notes !== null && notes.length > 0 ?
-
-             : <tr><td>No to-do notes</td></tr>
-          }
-        </tbody>
-
-      </table> */}
-
 
 
 
