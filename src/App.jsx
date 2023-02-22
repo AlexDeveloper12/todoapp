@@ -81,11 +81,9 @@ function App() {
   }
 
   const handleIsComplete = (todoId, event) => {
-    let tempValue = JSON.parse(localStorage.getItem(`todonote-${todoId}`))
-    console.log(tempValue);
-    tempValue.isComplete = tempValue.isComplete == 0 ? 1 : 0
-    localStorage.setItem(`todonote-${todoId}`, JSON.stringify(tempValue));
-    setIsComplete(!isComplete)
+    var currentModalData = {...modalData};
+    currentModalData.isComplete = event.target.checked;
+    setModalData(currentModalData);
   }
 
   const toggleValidationModal = () => {
