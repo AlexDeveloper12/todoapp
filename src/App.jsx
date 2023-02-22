@@ -113,32 +113,49 @@ function App() {
 
   }
 
+  const deleteAllTodos = () => {
+    localStorage.clear();
+  }
+
+  const deleteCompletedTodos = () => {
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+      var value = JSON.parse(localStorage.getItem(key))
+      console.log(`key-${key} value-${value}`)
+      
+      if(value.isComplete===1){
+        localStorage.removeItem(`todonote-${value.id}`)
+      }
+    }
+
+  }
+
   return (
     <div className="container">
 
       <h3 className="text-center">Notes</h3>
 
       <div className="card card-body my-3">
-        
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <div className="input-group-text bg-info text-white">
-                <i className="fa fa-book" />
-              </div>
+
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <div className="input-group-text bg-info text-white">
+              <i className="fa fa-book" />
             </div>
-
-
-            <AddtodoName
-              input={name}
-              handleChange={handleInput}
-            />
           </div>
 
-          <div className="text-center">
-            <AddtodoButton
-              btnAction={addTodoInformation}
-            />
-          </div>
+
+          <AddtodoName
+            input={name}
+            handleChange={handleInput}
+          />
+        </div>
+
+        <div className="text-center">
+          <AddtodoButton
+            btnAction={addTodoInformation}
+          />
+        </div>
       </div>
 
       {
@@ -164,16 +181,16 @@ function App() {
         <div className="col-md-6">
           <button
             type="button"
-            className="btn btn-danger btn-block mt-1">
-            Delete completed tasks
+            className="btn btn-danger btn-block mt-1" onClick={deleteCompletedTodos} >
+            Delete completed To-do items
           </button>
         </div>
 
         <div className="col-md-6">
           <button
             type="button"
-            className="btn btn-danger btn-block mt-1">
-            Delete all tasks
+            className="btn btn-danger btn-block mt-1" onClick={deleteAllTodos}>
+            Delete all To-do items
           </button>
         </div>
 
