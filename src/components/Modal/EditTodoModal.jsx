@@ -16,6 +16,7 @@ const customStyles = {
 };
 
 function EditTodoModal({ data, isEditModalOpen, handleText, handleIsComplete, updateTodo,toggleEditModal }) {
+    console.log(`${data.name}`)
 
     return (
         <div>

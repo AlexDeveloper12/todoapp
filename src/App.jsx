@@ -18,6 +18,7 @@ function App() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [deleteChosenId, setDeleteChosenId] = useState(0);
+  const [editName, setEditName] = useState("");
 
   useEffect(() => {
     getNotes();
@@ -71,7 +72,17 @@ function App() {
       case "addtodoname":
         setName(value);
         break;
+      case "updatetodoname":
+        
     }
+  }
+
+  const handleIsComplete = (todoId, event) => {
+    let tempValue = JSON.parse(localStorage.getItem(`todonote-${todoId}`))
+    console.log(tempValue);
+    tempValue.isComplete = tempValue.isComplete == 0 ? 1 : 0
+    localStorage.setItem(`todonote-${todoId}`, JSON.stringify(tempValue));
+    setIsComplete(!isComplete)
   }
 
   const toggleValidationModal = () => {
@@ -87,15 +98,6 @@ function App() {
     setIsDeleteModalOpen(!isDeleteModalOpen);
     setDeleteChosenId(id);
 
-  }
-
-  const handleIsComplete = (todoId, event) => {
-    let tempValue = JSON.parse(localStorage.getItem(`todonote-${todoId}`))
-    console.log(tempValue);
-    tempValue.isComplete = tempValue.isComplete == 0 ? 1 : 0
-    localStorage.setItem(`todonote-${todoId}`, JSON.stringify(tempValue));
-    setIsComplete(event.target.checked)
-    //getNotes();
   }
 
   const updateTodoItem = (todoId, name, isComplete) => {
@@ -143,7 +145,7 @@ function App() {
       <div className="card card-body my-3">
 
         <div className="input-group">
-        
+
           <AddtodoName
             input={name}
             handleChange={handleInput}
@@ -158,37 +160,37 @@ function App() {
       </div>
 
       {
-        
+
         notes.length > 0 ?
-        <>
-        <label>Count: {notes.length}</label>
+          <>
+            <label>Count: {notes.length}</label>
 
-          <table className="table table-bordered">
-            <thead className="thead-dark">
-              <tr>
-                <th>Name</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
+            <table className="table table-bordered">
+              <thead className="thead-dark">
+                <tr>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              {
-                notes.map(value => {
-                  return (
-                    <TodoItem
-                      localNote={value}
-                      toggleEdit={toggleEditModal}
-                      toggleDelete={toggleDeleteModal}
-                    />
-                  )
-                })
-              }
-            </tbody>
+              <tbody>
+                {
+                  notes.map(value => {
+                    return (
+                      <TodoItem
+                        localNote={value}
+                        toggleEdit={toggleEditModal}
+                        toggleDelete={toggleDeleteModal}
+                      />
+                    )
+                  })
+                }
+              </tbody>
 
-          </table>
+            </table>
           </>
           : <label>No To-dos </label>
-          
+
       }
       <div className="row mt-4">
         <div className="col-md-6">
@@ -215,6 +217,7 @@ function App() {
               handleIsComplete={handleIsComplete}
               updateTodo={updateTodoItem}
               toggleEditModal={toggleEditModal}
+              handleText={handleInput}
             />
             : null
         }
