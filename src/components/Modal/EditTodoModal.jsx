@@ -16,7 +16,6 @@ const customStyles = {
 };
 
 function EditTodoModal({ data, isEditModalOpen, handleText, handleIsComplete, updateTodo,toggleEditModal }) {
-    console.log(`${data.name}`)
 
     return (
         <div>
@@ -27,7 +26,7 @@ function EditTodoModal({ data, isEditModalOpen, handleText, handleIsComplete, up
                 <form>
                     <div className="input-container">
                         <label className="edit-todo-label">Name:</label>
-                        <input type="text" className="edit-todo-name edit-todo" name="addtodoname" value={data.name} onChange={(event) => handleText(event)} />
+                        <input type="text" className="edit-todo-name edit-todo" name="updatetodoname" value={data.name} onChange={(event) => handleText(event)} />
                     </div>
 
                     <div className="input-container">

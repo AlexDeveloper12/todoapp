@@ -73,7 +73,10 @@ function App() {
         setName(value);
         break;
       case "updatetodoname":
-        
+        var currentModalData = {...modalData};
+        currentModalData.name = value;
+        setModalData(currentModalData);
+        break;
     }
   }
 
@@ -106,6 +109,7 @@ function App() {
     tempTodoItem.isComplete = isComplete;
     localStorage.setItem(`todonote-${todoId}`, JSON.stringify(tempTodoItem));
     setIsEditModalOpen(false);
+    getNotes();
   }
 
   const deleteTodo = (id) => {
