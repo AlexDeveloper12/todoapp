@@ -1,12 +1,12 @@
-textarea{
+textarea {
     resize: none;
     vertical-align: middle;
 }
 
-.notes-table{
+.notes-table {
     border-collapse: collapse;
-    width:80%;
-    margin:25px 0;
+    width: 80%;
+    margin: 25px 0;
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
@@ -15,11 +15,11 @@ textarea{
 
 .notes-table thead tr {
     background-color: #009879;
-    color:#ffffff;
+    color: #ffffff;
     text-align: left;
 }
 
-.notes-table th, 
+.notes-table th,
 .notes-table td {
     padding: 12px 15px;
 }
@@ -43,4 +43,8 @@ td[colspan="2"] {
 .completed-task {
     text-decoration: line-through;
     color: #db3545;
-  }
+}
+
+.todo-completed {
+    text-decoration: line-through;
+}

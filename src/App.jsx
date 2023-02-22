@@ -2,14 +2,15 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import AddtodoName from './components/AddtodoName';
 import AddtodoButton from './components/AddtodoButton';
-import Note from './components/Note';
 import ValidationModal from './components/Modal/ValidationModal';
 import EditTodoModal from './components/Modal/EditTodoModal';
 import DeleteTodoModal from './components/Modal/DeleteTodoModal';
+import TodoItem from './components/TodoItem';
 
 function App() {
 
   const [name, setName] = useState("");
+  const [isComplete, setIsComplete] = useState(0);
   const [id, setId] = useState(0);
   const [notes, setNotes] = useState([]);
   const [isValidationModalOpen, setisValidationModalOpen] = useState(false);
@@ -24,9 +25,10 @@ function App() {
 
   const addTodoInformation = () => {
     //here will be the code to set the note in the local storage so it is available after user leaves browser
+    var newId = Math.random();
 
     if (name.length > 0) {
-      setId(id + 1);
+      setId(newId);
       //set local storage key
       let todoNote = {
         id: id,
@@ -36,6 +38,7 @@ function App() {
 
       localStorage.setItem(`todonote-${todoNote.id}`, JSON.stringify(todoNote));
       getNotes();
+      setName("");
     } else {
       setisValidationModalOpen(true);
     }
@@ -86,12 +89,13 @@ function App() {
 
   }
 
-  const handleIsComplete = (todoId) => {
+  const handleIsComplete = (todoId, event) => {
     let tempValue = JSON.parse(localStorage.getItem(`todonote-${todoId}`))
     console.log(tempValue);
     tempValue.isComplete = tempValue.isComplete == 0 ? 1 : 0
     localStorage.setItem(`todonote-${todoId}`, JSON.stringify(tempValue));
-    getNotes();
+    setIsComplete(event.target.checked)
+    //getNotes();
   }
 
   const updateTodoItem = (todoId, name, description, isComplete) => {
@@ -123,18 +127,19 @@ function App() {
       var key = localStorage.key(i);
       var value = JSON.parse(localStorage.getItem(key))
       console.log(`key-${key} value-${value}`)
-      
-      if(value.isComplete===1){
-        localStorage.removeItem(`todonote-${value.id}`)
+
+      if (value.isComplete === 1) {
+        localStorage.removeItem(`todonote-${value.id}`);
+        console.log('this is complete')
+
       }
     }
-
   }
 
   return (
     <div className="container">
 
-      <h3 className="text-center">Notes</h3>
+      <h3 className="text-center">To-do list</h3>
 
       <div className="card card-body my-3">
 
@@ -160,23 +165,37 @@ function App() {
       </div>
 
       {
+        
         notes.length > 0 ?
-          <ul className="list-group my-5">
-            {
-              notes.map(value => {
-                return (
-                  <Note
-                    localNote={value}
-                    toggleEdit={toggleEditModal}
-                    toggleDelete={toggleDeleteModal}
-                  />
-                )
-              })
-            }
-          </ul>
+        <>
+        <label>Count: {notes.length}</label>
 
+          <table className="table table-bordered">
+            <thead className="thead-dark">
+              <tr>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {
+                notes.map(value => {
+                  return (
+                    <TodoItem
+                      localNote={value}
+                      toggleEdit={toggleEditModal}
+                      toggleDelete={toggleDeleteModal}
+                    />
+                  )
+                })
+              }
+            </tbody>
+
+          </table>
+          </>
           : <label>No To-dos </label>
-
+          
       }
       <div className="row mt-4">
         <div className="col-md-6">
