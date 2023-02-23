@@ -7,6 +7,7 @@ import EditTodoModal from './components/Modal/EditTodoModal';
 import DeleteTodoModal from './components/Modal/DeleteTodoModal';
 import TodoItem from './components/TodoItem';
 import DeleteItemButtons from './components/DeleteItemButtons';
+import { FilterValues } from './components/Utils/filterValues';
 
 function App() {
 
@@ -18,18 +19,19 @@ function App() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [deleteChosenId, setDeleteChosenId] = useState(0);
+  const [filterValue, setFilterValue] = useState("");
 
   useEffect(() => {
     getNotes();
   }, [])
 
   const addTodoInformation = () => {
-    
+
     var newId = Math.floor(Math.random() * 100000);
 
     if (name.length > 0) {
       setId(newId);
-      
+
       let todoNote = {
         id: newId,
         name: name,
@@ -141,10 +143,58 @@ function App() {
 
   }
 
+  const handleFilterChange = (event) => {
+    console.log(event.target.value);
+    var trimValue = event.target.value.trim();
+    setFilterValue(trimValue);
+
+    var returnedFilterValues = [];
+
+    switch (trimValue) {
+      case "All":
+        returnedFilterValues = DetermineFilter(trimValue);
+        break;
+      case "Completed":
+        returnedFilterValues = DetermineFilter(trimValue);
+        break;
+      case "NotCompleted":
+        returnedFilterValues = DetermineFilter(trimValue);
+        break;
+
+    }
+
+    setNotes(returnedFilterValues);
+
+  }
+
+  const DetermineFilter = (filterValue) => {
+    var tempArray = []
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+      var value = JSON.parse(localStorage.getItem(key))
+
+      if (filterValue === "All") {
+        tempArray.push(value);
+      }
+
+      if (filterValue === "Completed") {
+        if (value.isComplete) {
+          tempArray.push(value)
+        }
+      }
+
+      if (filterValue === "NotCompleted") {
+        if (!value.isComplete) {
+          tempArray.push(value);
+        }
+      }
+    }
+
+    return tempArray;
+  }
+
   return (
     <div className="container">
-
-      <h3 className="text-center">To-do list</h3>
 
       <div className="card card-body my-3">
 
@@ -167,6 +217,29 @@ function App() {
 
         notes.length > 0 ?
           <>
+
+            <h3 className="text-center">To-do List</h3>
+
+            <div className="text-center">
+              {
+                FilterValues.map(({ value }, index) => {
+                  return (
+                    <>
+                      <input type="radio"
+                        id={`filter-value-cb-${index}`}
+                        name="filter"
+                        value={value}
+                        className="filter-cb"
+                        onChange={(e) => handleFilterChange(e)}
+                      />
+                      <label htmlFor={`filter-value-cb-${index}`}>{value}</label>
+                    </>
+                  )
+                })
+              }
+
+            </div>
+
             <label>Count: {notes.length}</label>
 
             <table className="table table-bordered">
@@ -179,7 +252,7 @@ function App() {
 
               <tbody>
                 {
-                  notes.map((value,index)=>{
+                  notes.map((value, index) => {
                     return (
                       <TodoItem
                         localNote={value}

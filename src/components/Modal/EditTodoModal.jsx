@@ -28,7 +28,7 @@ function EditTodoModal({ data, isEditModalOpen, handleText, handleIsComplete, up
 
                         <div className="input-container">
                             <label className="edit-todo-label">Is Complete?</label>
-                            <input type="checkbox" value={data.isComplete} checked={data.isComplete} onChange={(e) => handleIsComplete(data.id, e)} />
+                            <input type="checkbox" value={data.isComplete} checked={data.isComplete} onChange={(e) => handleIsComplete(e)} />
                         </div>
                     </form>
                 </Modal.Body>

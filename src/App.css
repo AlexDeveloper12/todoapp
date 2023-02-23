@@ -53,3 +53,8 @@ td[colspan="2"] {
     padding:10px;
     width: 100px;
 }
+
+.filter-cb{
+    margin-left: 20px;
+    margin-right: 20px;
+}
