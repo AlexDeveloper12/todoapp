@@ -1,5 +1,7 @@
 import React from "react";
 import ReactModal from "react-modal";
+import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
 
 const customStyles = {
     content: {
@@ -16,31 +18,34 @@ const customStyles = {
 
 function DeleteTodoModal({ id, isDeleteOpen, deleteTodo, toggleDeleteModal }) {
     return (
-        <div>
-            <ReactModal
-                isOpen={isDeleteOpen}
-                style={customStyles}
+        <>
+            <Modal
+                show={isDeleteOpen}
+                onHide={toggleDeleteModal}
+                backdrop="static"
+                keyboard={false}
             >
 
-                <div className="row text-center">
-                    <div className="col-md-12">
-                        Are you sure you want to delete this todo item ?
-                    </div>
-                </div>
+                <Modal.Header>
+                    <Modal.Title>
+                        Delete To-do item
+                    </Modal.Title>
+                </Modal.Header>
 
-                <div className="row text-center my-2 text-right">
-                    <div className="col-md-4">
-                        <button type="button" className="btn btn-danger" onClick={() => deleteTodo(id)}>Delete</button>
-                    </div>
-                    <div className="col-md-4">
-                        <button type="button" className="btn btn-primary" onClick={toggleDeleteModal} >Cancel</button>
-                    </div>
+                <Modal.Body>
+                    Are you sure you want to delete this todo item ?
+                </Modal.Body>
 
-                </div>
+                <Modal.Footer>
+                    <Button className="btn btn-danger" onClick={() => deleteTodo(id)}>Delete</Button>
+                    <Button className="btn btn-primary" onClick={toggleDeleteModal}>Cancel</Button>
+
+                </Modal.Footer>
 
 
-            </ReactModal>
-        </div>
+
+            </Modal>
+        </>
     )
 }
 
