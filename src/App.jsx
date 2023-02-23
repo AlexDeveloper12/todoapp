@@ -6,11 +6,11 @@ import ValidationModal from './components/Modal/ValidationModal';
 import EditTodoModal from './components/Modal/EditTodoModal';
 import DeleteTodoModal from './components/Modal/DeleteTodoModal';
 import TodoItem from './components/TodoItem';
+import DeleteItemButtons from './components/DeleteItemButtons';
 
 function App() {
 
   const [name, setName] = useState("");
-  const [isComplete, setIsComplete] = useState(0);
   const [id, setId] = useState(0);
   const [notes, setNotes] = useState([]);
   const [isValidationModalOpen, setisValidationModalOpen] = useState(false);
@@ -18,26 +18,25 @@ function App() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [deleteChosenId, setDeleteChosenId] = useState(0);
-  const [editName, setEditName] = useState("");
 
   useEffect(() => {
     getNotes();
   }, [])
 
   const addTodoInformation = () => {
-    //here will be the code to set the note in the local storage so it is available after user leaves browser
-    var newId = Math.random();
+    
+    var newId = Math.floor(Math.random() * 100000);
 
     if (name.length > 0) {
       setId(newId);
-      //set local storage key
+      
       let todoNote = {
-        id: id,
+        id: newId,
         name: name,
         isComplete: 0
       }
 
-      localStorage.setItem(`todonote-${todoNote.id}`, JSON.stringify(todoNote));
+      localStorage.setItem(`todonote-${newId}`, JSON.stringify(todoNote));
       getNotes();
       setName("");
     } else {
@@ -73,15 +72,15 @@ function App() {
         setName(value);
         break;
       case "updatetodoname":
-        var currentModalData = {...modalData};
+        var currentModalData = { ...modalData };
         currentModalData.name = value;
         setModalData(currentModalData);
         break;
     }
   }
 
-  const handleIsComplete = (todoId, event) => {
-    var currentModalData = {...modalData};
+  const handleIsComplete = (event) => {
+    var currentModalData = { ...modalData };
     currentModalData.isComplete = event.target.checked;
     setModalData(currentModalData);
   }
@@ -111,7 +110,6 @@ function App() {
   }
 
   const deleteTodo = (id) => {
-    console.log(id)
     if (id !== null) {
       localStorage.removeItem(`todonote-${id}`);
       toggleDeleteModal();
@@ -121,22 +119,26 @@ function App() {
   }
 
   const deleteAllTodos = () => {
-    localStorage.clear();
-    getNotes();
+    if (localStorage.length > 0) {
+      localStorage.clear();
+      getNotes();
+    }
   }
 
   const deleteCompletedTodos = () => {
-    for (var i = 0; i < localStorage.length; i++) {
-      var key = localStorage.key(i);
-      var value = JSON.parse(localStorage.getItem(key))
-      console.log(`key-${key} value-${value}`)
+    if (localStorage.length > 0) {
+      for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        var value = JSON.parse(localStorage.getItem(key))
 
-      if (value.isComplete === 1) {
-        localStorage.removeItem(`todonote-${value.id}`);
-        console.log('this is complete')
+        if (value.isComplete) {
+          localStorage.removeItem(`todonote-${value.id}`);
+          getNotes();
 
+        }
       }
     }
+
   }
 
   return (
@@ -177,16 +179,18 @@ function App() {
 
               <tbody>
                 {
-                  notes.map(value => {
+                  notes.map((value,index)=>{
                     return (
                       <TodoItem
                         localNote={value}
                         toggleEdit={toggleEditModal}
                         toggleDelete={toggleDeleteModal}
+                        key={index}
                       />
                     )
                   })
                 }
+
               </tbody>
 
             </table>
@@ -195,21 +199,11 @@ function App() {
 
       }
       <div className="row mt-4">
-        <div className="col-md-6">
-          <button
-            type="button"
-            className="btn btn-danger btn-block mt-1" onClick={deleteCompletedTodos} >
-            Delete completed To-do items
-          </button>
-        </div>
 
-        <div className="col-md-6">
-          <button
-            type="button"
-            className="btn btn-danger btn-block mt-1" onClick={deleteAllTodos}>
-            Delete all To-do items
-          </button>
-        </div>
+        <DeleteItemButtons
+          deleteCompletedTodos={deleteCompletedTodos}
+          deleteAllTodos={deleteAllTodos}
+        />
 
         {
           isEditModalOpen ?

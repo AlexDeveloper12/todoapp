@@ -1,48 +1,47 @@
 import React from "react";
-import ReactModal from "react-modal";
+import { Modal, Button } from "react-bootstrap";
 import "../Modal/EditTodoModal.css";
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%,-50%)',
-        width: '50%',
-        height: '50%'
-    },
-};
-
-function EditTodoModal({ data, isEditModalOpen, handleText, handleIsComplete, updateTodo,toggleEditModal }) {
+function EditTodoModal({ data, isEditModalOpen, handleText, handleIsComplete, updateTodo, toggleEditModal }) {
 
     return (
-        <div>
-            <ReactModal
-                isOpen={isEditModalOpen}
-                style={customStyles}
-            >
-                <form>
-                    <div className="input-container">
-                        <label className="edit-todo-label">Name:</label>
-                        <input type="text" className="edit-todo-name edit-todo" name="updatetodoname" value={data.name} onChange={(event) => handleText(event)} />
-                    </div>
+        <>
 
-                    <div className="input-container">
-                        <label className="edit-todo-label">Is Complete?</label>
-                        <input type="checkbox" value={data.isComplete} checked={data.isComplete} onChange={(e) => handleIsComplete(data.id,e)} />
-                    </div>
+            <Modal
+                show={isEditModalOpen}
+                onHide={toggleEditModal}
+                backdrop="static"
+                keyboard={false}>
 
-                    <div className="btn-update-container">
-                        <button type="button" className="btn btn-success" onClick={()=>updateTodo(data.id,data.name,data.isComplete)} >Update</button>
-                        <button type="button" className="btn btn-danger" onClick={toggleEditModal}>Cancel</button>
-                    </div>
+                <Modal.Header>
+                    <Modal.Title>
+                        Edit To-do item
+                    </Modal.Title>
+                </Modal.Header>
 
-                </form>
+                <Modal.Body>
+                    <form>
+                        <div className="input-container">
+                            <label className="edit-todo-label">Name:</label>
+                            <input type="text" className="edit-todo-name edit-todo" name="updatetodoname" value={data.name} onChange={(event) => handleText(event)} />
+                        </div>
 
-            </ReactModal>
-        </div>
+                        <div className="input-container">
+                            <label className="edit-todo-label">Is Complete?</label>
+                            <input type="checkbox" value={data.isComplete} checked={data.isComplete} onChange={(e) => handleIsComplete(data.id, e)} />
+                        </div>
+                    </form>
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button className="btn btn-primary" onClick={() => updateTodo(data.id, data.name, data.isComplete)}>Update</Button>
+                    <Button className="btn btn-danger" onClick={toggleEditModal}>Cancel</Button>
+
+                </Modal.Footer>
+
+
+            </Modal>
+        </>
     )
 
 }

@@ -1,20 +1,5 @@
 import React from "react";
-import ReactModal from "react-modal";
-import Modal from "react-bootstrap/Modal";
-import { Button } from "react-bootstrap";
-
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%,-50%)',
-        width: '50%',
-        height: '50%'
-    },
-};
+import { Button,Modal } from "react-bootstrap";
 
 function DeleteTodoModal({ id, isDeleteOpen, deleteTodo, toggleDeleteModal }) {
     return (

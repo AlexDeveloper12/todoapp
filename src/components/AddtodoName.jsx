@@ -10,7 +10,7 @@ function AddtodoName({ input, handleChange }) {
                 onChange={handleChange}
                 name={"addtodoname"}
                 placeholder="New Note"
-                maxLength={30}
+                maxLength={100}
             />
         </>
     )

@@ -23,7 +23,7 @@ function ValidationModal({ isModalOpen, toggleModal }) {
                 style={customStyles}
             >
                 <span>
-                    Please ensure that you enter a value for your to-do note
+                    Please ensure that you enter a value for your to-do item
                 </span>
 
                 <div className="text-center mt-3">
