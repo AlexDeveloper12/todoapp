@@ -195,7 +195,7 @@ function App() {
 
             </table>
           </>
-          : <label>No To-dos </label>
+          : <label>No To-do items </label>
 
       }
       <div className="row mt-4">

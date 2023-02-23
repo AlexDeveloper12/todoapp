@@ -1,5 +1,6 @@
 import React from "react";
 import ReactModal from "react-modal";
+import { Modal, Button } from "react-bootstrap";
 
 const customStyles = {
     content: {
@@ -18,21 +19,36 @@ function ValidationModal({ isModalOpen, toggleModal }) {
 
     return (
         <div>
-            <ReactModal
-                isOpen={isModalOpen}
-                style={customStyles}
+
+            <Modal
+                show={isModalOpen}
+                onHide={toggleModal}
+                backdrop="static"
+                keyboard={false}
             >
-                <span>
-                    Please ensure that you enter a value for your to-do item
-                </span>
 
-                <div className="text-center mt-3">
-                    <button type="button" className="btn btn-danger" onClick={toggleModal}>Close</button>
-                </div>
+                <Modal.Header>
+                    <Modal.Title>
+                        Validation
+                    </Modal.Title>
+                </Modal.Header>
 
+                <Modal.Body>
+                    <span>
+                        Please ensure that you enter a value for your to-do item
+                    </span>
 
+                    <div className="text-center mt-3">
+                        <button type="button" className="btn btn-danger" onClick={toggleModal}>Close</button>
+                    </div>
+                </Modal.Body>
 
-            </ReactModal>
+                <Modal.Footer>
+
+                <Button className="btn-danger" onClick={toggleModal}>Close</Button>
+                </Modal.Footer>
+
+            </Modal>
 
         </div>
     )
