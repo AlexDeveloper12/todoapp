@@ -1,11 +1,14 @@
 export const FilterValues = [{
-    value: "All"
+    label: "All",
+    value:"All"
 },
 {
+    label:"Completed",
     value: "Completed"
 
 },
 {
-    value: "Not Completed"
+    label: "Not Completed",
+    value: "NotCompleted"
 }
 ]
