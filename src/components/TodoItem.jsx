@@ -1,13 +1,16 @@
 import React from "react";
 
 function TodoItem({ localNote, toggleEdit, toggleDelete }) {
-    const { id, name, isComplete } = localNote;
+    const { id, name, isComplete,dateAdded } = localNote;
 
     return (
         <>
             <tr>
                 <td className="col-md-8">
                     <span className={"mt-1 mb-0 align-middle " + (isComplete ? "todo-completed" : "")}>{name}</span>
+                </td>
+                <td>
+                    <span className="mt-1 mb-0 align-middle">{dateAdded}</span>
                 </td>
                 <td className="col-md-2">
                     <span

@@ -10,18 +10,17 @@ import DeleteItemButtons from './components/DeleteItemButtons';
 import { FilterValues } from './components/Utils/filterValues';
 import FilterRadioButton from './components/FilterRadioButton';
 import AllCompleteButton from './components/AllCompleteButton';
+import moment from "moment";
 
 function App() {
 
   const [name, setName] = useState("");
-  const [id, setId] = useState(0);
   const [todoItems, setTodoItems] = useState([]);
   const [isValidationModalOpen, setisValidationModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const [deleteChosenId, setDeleteChosenId] = useState(0);
-  const [filterValue, setFilterValue] = useState("");
   const [todoItemsFilter, setTodoItemsFilter] = useState([]);
 
   useEffect(() => {
@@ -32,13 +31,15 @@ function App() {
 
     var newId = Math.floor(Math.random() * 100000);
 
-    if (name.length > 0) {
-      setId(newId);
+    const dateNow = moment().format("DD/MM/YYYY HH:mm").toString();
+    console.log(dateNow)
 
+    if (name.length > 0) {
       let todoItem = {
         id: newId,
         name: name,
-        isComplete: 0
+        isComplete: 0,
+        dateAdded:dateNow
       }
 
       localStorage.setItem(`todoitem-${newId}`, JSON.stringify(todoItem));
@@ -86,7 +87,6 @@ function App() {
   }
 
   const handleIsComplete = (event) => {
-    console.log(event.target.checked)
     var currentModalData = { ...modalData };
     currentModalData.isComplete = event.target.checked;
     setModalData(currentModalData);
@@ -156,7 +156,6 @@ function App() {
   const handleFilterChange = (event) => {
 
     var trimValue = event.target.value;
-    setFilterValue(trimValue);
 
     var items = [...todoItems];
 
@@ -240,6 +239,7 @@ function App() {
               <thead className="thead-dark">
                 <tr>
                   <th>Name</th>
+                  <th>Date Added</th>
                   <th>Actions</th>
                 </tr>
               </thead>
