@@ -9,7 +9,7 @@ function AddtodoName({ input, handleChange }) {
                 value={input}
                 onChange={handleChange}
                 name={"addtodoname"}
-                placeholder="New Note"
+                placeholder="New To-do item"
                 maxLength={100}
             />
         </>
